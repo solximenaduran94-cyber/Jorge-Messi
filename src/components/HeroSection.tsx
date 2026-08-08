@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Flame, Heart, MessageSquare, Shield, Calendar, MapPin, Sparkles, Star, Eye } from 'lucide-react';
 import { JORGE_MESSI_INFO } from '../data/memorialData';
+import jorgeUserPhoto from '../assets/images/jorge_messi_user_photo.jpg';
+import jorgeUploadedPhoto from '../assets/images/jorge_messi_uploaded.png';
+import jorgePortraitPhoto from '../assets/images/jorge_messi_portrait_1786209339227.jpg';
 
 interface HeroSectionProps {
   candleCount: number;
@@ -66,16 +69,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <div className="border border-amber-500/30 p-1 relative">
                     <div className="aspect-[4/3] overflow-hidden bg-[#080808] relative">
                       <img
-                        src="/jorge_messi_user_photo.jpg"
+                        src={jorgeUploadedPhoto || jorgeUserPhoto}
                         alt="Fotografía de Jorge Horacio Messi"
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover object-[center_15%] filter brightness-95 contrast-105"
                         onError={(e) => {
                           const img = e.target as HTMLImageElement;
-                          if (!img.src.includes('uploaded')) {
-                            img.src = '/jorge_messi_uploaded.png';
+                          if (img.src !== jorgeUserPhoto && jorgeUserPhoto) {
+                            img.src = jorgeUserPhoto;
                           } else {
-                            img.src = '/jorge_messi_portrait_1786209339227.jpg';
+                            img.src = jorgePortraitPhoto;
                           }
                         }}
                       />

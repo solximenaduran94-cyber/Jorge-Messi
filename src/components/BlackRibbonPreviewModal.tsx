@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { X, Check, Copy, Share2, Award, Flame, Star, ShieldCheck } from 'lucide-react';
+import jorgeUserPhoto from '../assets/images/jorge_messi_user_photo.jpg';
+import jorgeUploadedPhoto from '../assets/images/jorge_messi_uploaded.png';
+import jorgePortraitPhoto from '../assets/images/jorge_messi_portrait_1786209339227.jpg';
 
 interface BlackRibbonPreviewModalProps {
   isOpen: boolean;
@@ -88,11 +91,16 @@ export const BlackRibbonPreviewModal: React.FC<BlackRibbonPreviewModalProps> = (
           {activeTab === 'portrait' && (
             <div className="relative w-48 h-48 border-2 border-amber-700/50 p-1 bg-black shadow-2xl overflow-hidden group">
               <img
-                src="/jorge_messi_user_photo.jpg"
+                src={jorgeUploadedPhoto || jorgeUserPhoto}
                 alt="Retrato de Jorge Horacio Messi"
                 className="w-full h-full object-cover object-[center_15%]"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/jorge_messi_uploaded.png';
+                  const img = e.target as HTMLImageElement;
+                  if (img.src !== jorgeUserPhoto && jorgeUserPhoto) {
+                    img.src = jorgeUserPhoto;
+                  } else {
+                    img.src = jorgePortraitPhoto;
+                  }
                 }}
               />
               
