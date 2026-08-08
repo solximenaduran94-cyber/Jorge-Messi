@@ -1,0 +1,6 @@
+{
+  "name": "Obituario Jorge Messi - Memorial y Homenaje",
+  "description": "Página de homenaje y obituario en memoria de Jorge Messi (1958 - 2026). Envía tus oraciones, enciende una vela virtual y expresa tus condolencias a Lionel Messi y su familia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
