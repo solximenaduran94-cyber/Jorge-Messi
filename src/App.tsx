@@ -9,6 +9,7 @@ import { TributeCardGenerator } from './components/TributeCardGenerator';
 import { Footer } from './components/Footer';
 import { ShareModal } from './components/ShareModal';
 import { AngelicAudioBar } from './components/AngelicAudioBar';
+import { BlackRibbonPreviewModal } from './components/BlackRibbonPreviewModal';
 import { CondolenceMessage, LitCandle } from './types';
 import { INITIAL_CONDOLENCES } from './data/memorialData';
 
@@ -37,6 +38,7 @@ export default function App() {
 
   const [isCandleModalOpen, setIsCandleModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isRibbonModalOpen, setIsRibbonModalOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('jorge_messi_candle_count', candleCount.toString());
@@ -97,6 +99,7 @@ export default function App() {
         candleCount={candleCount}
         onOpenCandleModal={() => setIsCandleModalOpen(true)}
         onOpenShareModal={() => setIsShareModalOpen(true)}
+        onOpenRibbonPreview={() => setIsRibbonModalOpen(true)}
       />
 
       {/* Main Content */}
@@ -107,6 +110,7 @@ export default function App() {
           onOpenCandleModal={() => setIsCandleModalOpen(true)}
           onScrollToMessages={() => scrollToSection('muro-condolencias')}
           onScrollToNetworks={() => scrollToSection('redes-oficiales')}
+          onOpenRibbonPreview={() => setIsRibbonModalOpen(true)}
         />
 
         <VirtualCandle
@@ -142,6 +146,13 @@ export default function App() {
         onClose={() => setIsShareModalOpen(false)}
       />
 
+      {/* Black Ribbon Preview Modal */}
+      <BlackRibbonPreviewModal
+        isOpen={isRibbonModalOpen}
+        onClose={() => setIsRibbonModalOpen(false)}
+      />
+
     </div>
   );
 }
+

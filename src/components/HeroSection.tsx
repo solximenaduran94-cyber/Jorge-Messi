@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flame, Heart, MessageSquare, Shield, Calendar, MapPin, Sparkles } from 'lucide-react';
+import { Flame, Heart, MessageSquare, Shield, Calendar, MapPin, Sparkles, Star, Eye } from 'lucide-react';
 import { JORGE_MESSI_INFO } from '../data/memorialData';
 
 interface HeroSectionProps {
@@ -8,6 +8,7 @@ interface HeroSectionProps {
   onOpenCandleModal: () => void;
   onScrollToMessages: () => void;
   onScrollToNetworks: () => void;
+  onOpenRibbonPreview?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -16,6 +17,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onOpenCandleModal,
   onScrollToMessages,
   onScrollToNetworks,
+  onOpenRibbonPreview,
 }) => {
   return (
     <section className="relative overflow-hidden bg-[#080808] text-[#dcdcdc] py-12 lg:py-20 border-b border-white/10">
@@ -25,11 +27,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Mourning badge */}
+        {/* Mourning badge with Black Star */}
         <div className="flex justify-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-white/15 text-zinc-300 text-xs tracking-[0.2em] uppercase font-sans">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-            <span>AFA Decretó Luto Oficial en el Fútbol Argentino</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-amber-500/30 text-amber-200 text-xs tracking-[0.2em] uppercase font-sans shadow-md">
+            <Star className="w-3.5 h-3.5 fill-black text-amber-400" />
+            <span>★ AFA Decretó Luto Oficial & Estrella Negra en el Fútbol Argentino ★</span>
           </div>
         </div>
 
@@ -51,7 +53,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400 animate-pulse" />
                     <span className="text-[10px]">Altar Memorial de Rosario</span>
                   </div>
-                  <span className="text-[10px] text-zinc-400">1958 — 2026</span>
+                  <div className="flex items-center gap-1 text-[10px] text-amber-300 font-semibold">
+                    <Star className="w-3 h-3 fill-black text-amber-400" />
+                    <span>1958 — 2026</span>
+                  </div>
                 </div>
 
                 {/* Main Framed Photo Area */}
@@ -61,21 +66,40 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <div className="border border-amber-500/30 p-1 relative">
                     <div className="aspect-[4/3] overflow-hidden bg-[#080808] relative">
                       <img
-                        src="/src/assets/images/jorge_messi_user_photo.jpg"
+                        src="/jorge_messi_user_photo.jpg"
                         alt="Fotografía de Jorge Horacio Messi"
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover object-[center_15%] filter brightness-95 contrast-105"
+                        onError={(e) => {
+                          const img = e.target as HTMLImageElement;
+                          if (!img.src.includes('uploaded')) {
+                            img.src = '/jorge_messi_uploaded.png';
+                          } else {
+                            img.src = '/jorge_messi_portrait_1786209339227.jpg';
+                          }
+                        }}
                       />
                       
                       {/* Vignette Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent opacity-60" />
 
                       {/* Black Ribbon Draped Corner */}
-                      <div className="absolute top-0 left-0 w-12 h-12 pointer-events-none overflow-hidden">
-                        <div className="bg-black border-y border-amber-600/40 text-amber-200/90 text-[8px] font-sans uppercase tracking-widest text-center py-0.5 transform -rotate-45 -translate-x-3 translate-y-2 shadow-md">
-                          Luto
+                      <div className="absolute top-0 left-0 w-14 h-14 pointer-events-none overflow-hidden">
+                        <div className="bg-black/95 border-y border-amber-600/60 text-amber-200/90 text-[8px] font-sans uppercase tracking-widest text-center py-0.5 transform -rotate-45 -translate-x-4 translate-y-2.5 shadow-xl">
+                          ★ Luto ★
                         </div>
                       </div>
+
+                      {/* Black Ribbon Preview Button on Image */}
+                      {onOpenRibbonPreview && (
+                        <button
+                          onClick={onOpenRibbonPreview}
+                          className="absolute bottom-2 right-2 bg-black/85 hover:bg-black border border-amber-500/50 text-amber-300 text-[10px] font-sans uppercase tracking-wider px-2 py-1 flex items-center gap-1 backdrop-blur-sm transition-all shadow-lg"
+                        >
+                          <Eye className="w-3 h-3 text-amber-400" />
+                          <span>Previsualizar Lazo</span>
+                        </button>
+                      )}
                     </div>
                   </div>
 
